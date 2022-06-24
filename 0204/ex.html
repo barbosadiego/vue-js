@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js - fundamentos</title>
+    <style>
+      .verde{
+        color: green;
+      }
+      .vermelho{
+        color: red;
+      }
+      table{
+        border: 1px solid black;
+      }
+      tbody{
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Utilizando as API's
+      https://api.origamid.dev/stock/aaple/quote
+      https://api.origamid.dev/stock/googl/quote
+
+      - Compare o marketCap (valor de
+      mercado) entre ambas.
+
+      - Mostre o nome das empresas e o valor
+      na interace (companyName e marketCap).
+
+      - Mude a cor para verde o nome da empresa com
+      maior marketCap e vermelho a com menor.
+    -->
+
+    <div id="app">
+      <button @click="buscaDados">Ver dados</button>
+      <table>
+        <caption>Comparação</caption>
+        <tr>
+          <thead>
+            <th :class="google.marketCap > apple.marketCap ? 'verde' : 'vermelho'">{{google.companyName}}</th>
+            <th :class="apple.marketCap > google.marketCap ? 'verde' : 'vermelho'">{{apple.companyName}}</th>
+          </thead>
+        </tr>
+        <tr>
+          <tbody>
+            <td>{{google.marketCap}}</td>
+            <td>{{apple.marketCap}}</td>
+          </tbody>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data:{
+          google: {},
+          apple: {},
+        },
+        methods:{
+          buscaDados(){
+            const data1 = fetch('https://api.origamid.dev/stock/aapl/quote')
+              .then(res => res.json())
+              .then(json => {
+                this.apple = json
+              })
+            const data2 = fetch('https://api.origamid.dev/stock/googl/quote')
+              .then(res => res.json())
+              .then(json => {
+                this.google = json
+              })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
