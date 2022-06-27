@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js - fundamentos</title>
+  </head>
+  <body>
+    <div id="app">
+      <button v-on:click="handleClick">Click</button>
+      <button @click="contador++">Click 2</button>
+      {{contador}}
+      <br>
+      <button @click="ativo = !ativo">toggle</button>
+      <p v-if="ativo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem eaque quis assumenda suscipit, officiis tempore earum reprehenderit deleniti fuga dolore aperiam consectetur. Numquam sunt, officia aspernatur itaque animi est accusantium.</p>
+      <a href="#interno" @click.prevent="handleClick">link interno</a>
+      <input type="text" @keyup.enter="handleClick">
+      <p @mousemove="handleMove">Esse é o mouse x: {{mouse.x}}</p>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data:{
+          contador: 0,
+          ativo: true,
+          mouse: '',
+        },
+        methods:{
+          handleClick(e){
+            console.log(e)
+          },
+          handleMove(e){
+            this.mouse = e
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
