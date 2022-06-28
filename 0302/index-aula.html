@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js - fundamentos</title>
+  </head>
+  <body>
+    <div id="app">
+     <p :class="[cor, {verde: eVerde}]">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque provident ipsum aliquid. Rerum tempore, voluptates placeat repudiandae ullam saepe adipisci autem repellat, ea qui laudantium nesciunt, hic fugit eligendi laborum?</p>
+     <p :class="{ativo: estaAtivo, verde: eVerde}">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iste facilis praesentium, rerum amet voluptatum enim nisi repellendus, magnam inventore quisquam vitae iure tempore laboriosam ut laborum? Quae officia aperiam magnam.</p>
+     <button @click="eVerde = !eVerde">mudar</button>
+     <p :style="{background: bgColor, color: fontColor, fontSize: size + 'px'}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto eveniet quam ipsum nihil voluptas fuga commodi perspiciatis earum illum incidunt unde ullam, quo debitis harum velit similique porro numquam reiciendis.</p>
+     <button @click="size++">aumentar fonte</button>
+     <button :style="btn" @click="size--">diminuir fonte</button>
+     <a :style="btn" href="#">click</a>
+     <p :style="estiloParagrafo">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga, provident dignissimos repellendus facilis quasi enim placeat ullam, optio numquam nobis nihil exercitationem temporibus rerum minus? Minima sint deleniti eaque repellat.</p>
+     {{estiloParagrafo}}
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          cor: 'azul',
+          background: 'verde',
+          estaAtivo: true,
+          eVerde: true,
+          bgColor: 'black',
+          fontColor: 'white',
+          size: 20,
+          btn:{
+            background: 'tomato',
+            fontSize: '20px',
+            color: '#fff',
+            cursor: 'pointer',
+            border: 'none',
+            padding: '10px',
+          }
+        },
+        computed:{
+          estiloParagrafo(){
+            const tam = Math.floor(Math.random() * 50);
+            return {
+              fontSize: tam + 'px',
+            } 
+          }
+        }
+      })
+    </script>
+
+    <style>
+      .azul{
+        color: blue;
+      }
+      .ativo{
+        background-color: blueviolet;
+        color: white;
+        padding: 10px;
+      }
+      .verde{
+        background-color: green;
+      }
+    </style>
+  </body>
+</html>
