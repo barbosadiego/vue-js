@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js - fundamentos</title>
+  </head>
+  <body>
+    <!-- 
+      1 - Crie um criador de botões.
+
+      O usuário poderá definir:
+      width,
+      height,
+      font-size,
+      font-family,
+      text-align,
+      background,
+      color,
+      border-radius,
+
+      As escolhas serão feitas em campos de
+      formulário. Cada escolha deverá ser 
+      refletida em um elemento (o botão).
+
+
+      2 - Crie um formulário com, nome, email, telefone e mensagem.
+      Ao clicar em enviar, as informações preenchidas no formulário
+      devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+    -->
+
+    <div id="app">
+      <h1>Criador de botão</h1>
+      <a :style="estiloBotao" href="#">Clique Aqui</a>
+      <hr>
+      <div>
+        <label for="width">Width</label>
+        <input type="text" id="width" v-model.lazy="estiloBotao.width" /> 
+
+        <label for="height">Height</label>
+        <input type="text" id="height" v-model.lazy="estiloBotao.height" />
+
+        <label for="fontSize">Font Size</label>
+        <input type="text" id="fontSize" v-model.lazy="estiloBotao.fontSize" />
+
+        <label for="fontFamily">Font Family</label>
+        <input type="text" id="fontFamily" v-model.lazy="estiloBotao.fontFamily" />
+
+        <label for="textAlign">Text Align</label>
+        <input type="text" id="textAlign" v-model.lazy="estiloBotao.textAlign" />
+
+        <label for="background">Background</label>
+        <input type="color" id="background" v-model="estiloBotao.background" />
+
+        <label for="color">Color</label>
+        <input type="color" id="color" v-model="estiloBotao.color" />
+
+        <label for="borderRadius">Bordes Radius</label>
+        <input type="text" id="borderRadius" v-model="estiloBotao.borderRadius" />
+      </div>
+      <hr>
+      <div>
+        <h1>Formulário</h1>
+        <form>
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" v-model.lazy="nome">
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" v-model.lazy="email">
+
+          <label for="telefone">Telefone:</label>
+          <input type="text" id="telefone" v-model.lazy="telefone">
+
+          <label for="mensagem">Mensagem:</label>
+          <textarea name="mensagem" id="mensagem" cols="30" rows="10" v-model.lazy="mensagem"></textarea>
+
+          <input @click.prevent="mostrar" type="submit" value="Enviar">
+        </form>
+        <div v-if="exibirDados">
+          <p>Nome: {{nome}}</p>
+          <p>Email: {{email}}</p>
+          <p>Telefone: {{telefone}}</p>
+          <p>Mensagem: {{mensagem}}</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el:'#app',
+        data:{
+          estiloBotao:{
+            width: '100px',
+            height: '40px',
+            fontSize: '16px',
+            fontFamily: '',
+            textAlign: '',
+            background: '',
+            color: '',
+            borderRadius: '0px',
+          },
+          nome: '',
+          email: '',
+          telefone: '',
+          mensagem: '',
+          exibirDados: false,
+        },
+        methods:{
+          mostrar(){
+            this.exibirDados = true
+          }
+        },
+      })
+    </script>
+
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      input, label, a {
+        display: block;
+      }
+      input{
+        margin-bottom: 20px;
+      }
+      a{
+        margin-top: 50px;
+        margin-bottom: 50px;
+      }
+    </style>
+  </body>
+</html>

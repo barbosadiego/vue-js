@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js - fundamentos</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <textarea v-model="mensagem"></textarea> -->
+      <input type="text" v-model.lazy.trim="nome" /> <br>
+      <input v-model.number="ano"> <br>
+      {{ano}}
+      <input :value="email" /> <br />
+
+      <input type="checkbox" id="receberEmail" v-model="receberEmail" />
+      <label for="receberEmail">Receber Email</label>
+      {{receberEmail}}
+
+      <p>Nome: {{nome}}</p>
+      <p>Email: {{email}}</p>
+
+      <div>
+        <input type="radio" name="cor" id="azul" v-model="cor" value="azul" />
+        <label for="azul">azul</label>
+        <input type="radio" name="cor" id="vermelho" v-model="cor" value="vermelho" />
+        <label for="vermelho">vermelho</label>
+        <input type="radio" name="cor" id="verde" v-model="cor" value="verde" />
+        <label for="verde">verde</label>
+        {{cor}}
+      </div>
+
+      <div>
+        <select v-model="fruta">
+          <option disabled value="">selecione</option>
+          <option value="banana">banana</option>
+          <option value="abacaxi">abacaxi</option>
+          <option value="laranja">laranja</option>
+        </select>
+        <p>seleção: {{fruta}}</p>
+        
+      </div>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          nome: 'diego',
+          email: 'diego@gmail.com',
+          receberEmail: '',
+          cor: '',
+          fruta: '',
+          ano: '',
+        },
+      });
+    </script>
+  </body>
+</html>
