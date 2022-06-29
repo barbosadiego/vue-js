@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js - fundamentos</title>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(value, key) in github">
+          <h3>{{key}}:</h3>
+          <span>{{value}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          mensagem: 'Uma mensagem',
+          github: {},
+        },
+        methods: {
+          puxarGithub() {
+            fetch('https://api.origamid.dev/stock/aapl/quote')
+              .then((res) => res.json())
+              .then((json) => (this.github = json));
+          },
+        },
+        beforeCreate() {
+          console.log('Antes da criação');
+          console.log(this.mensagem);
+        },
+        created() {
+          this.puxarGithub();
+          console.log('Foi criado');
+          console.log(this.mensagem);
+          console.log('Elemento:', this.$el);
+        },
+        beforeMount() {
+          console.log('BeforeMount:', this.mensagem);
+          console.log('Elemento:', this.$el);
+        },
+        mounted() {
+          console.log('Elemento:', this.$el);
+        },
+      });
+    </script>
+
+    <style>
+      body {
+        font-family: 'Courier New', Courier, monospace;
+      }
+      h3 {
+        text-transform: uppercase;
+      }
+      li{
+        list-style: none;
+      }
+    </style>
+  </body>
+</html>
