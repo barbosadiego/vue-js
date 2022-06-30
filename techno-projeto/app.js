@@ -23,6 +23,16 @@ const vm = new Vue({
         .then((res => res.json()))
         .then((json) => (this.produto = json));
     },
+    abrirModal(id){
+      this.fetchUmProduto(id);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    },
+    fecharModal(e){
+      if(e.target === e.currentTarget) this.produto = false;
+    },
   },
   created() {
     this.fetchProdutos();
