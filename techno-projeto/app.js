@@ -53,8 +53,19 @@ const vm = new Vue({
     fecharModal(e) {
       if (e.target === e.currentTarget) this.produto = false;
     },
+    checarLocalStorage(){
+      if(window.localStorage.carrinho){
+        this.carrinho = JSON.parse(window.localStorage.carrinho)
+      }
+    },
+  },
+  watch:{
+    carrinho(){
+      window.localStorage.carrinho = JSON.stringify(this.carrinho)
+    }
   },
   created() {
     this.fetchProdutos();
+    this.checarLocalStorage();
   },
 });
