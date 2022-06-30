@@ -4,6 +4,7 @@ const vm = new Vue({
     produtos: [],
     produto: false,
     carrinho: [],
+    carrinhoAtivo: false,
     mensagemAlerta: 'Item adicionado',
     alertaAtivo: false,
   },
@@ -55,6 +56,9 @@ const vm = new Vue({
     },
     fecharModal(e) {
       if (e.target === e.currentTarget) this.produto = false;
+    },
+    fecharCarrinho(e){
+      if (e.target === e.currentTarget) this.carrinhoAtivo = false;
     },
     checarLocalStorage(){
       if(window.localStorage.carrinho){
