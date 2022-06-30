@@ -49,7 +49,7 @@ const vm = new Vue({
       this.produto.estoque--;
       const { id, nome, preco } = this.produto;
       this.carrinho.push({ id, nome, preco });
-      this.alerta(`${nome} foi adicionado ao Carrinho.`)
+      this.alerta(`${nome} foi adicionado ao Carrinho.`);
     },
     removerItem(index) {
       this.carrinho.splice(index, 1);
@@ -57,37 +57,42 @@ const vm = new Vue({
     fecharModal(e) {
       if (e.target === e.currentTarget) this.produto = false;
     },
-    fecharCarrinho(e){
+    fecharCarrinho(e) {
       if (e.target === e.currentTarget) this.carrinhoAtivo = false;
     },
-    checarLocalStorage(){
-      if(window.localStorage.carrinho){
-        this.carrinho = JSON.parse(window.localStorage.carrinho)
+    checarLocalStorage() {
+      if (window.localStorage.carrinho) {
+        this.carrinho = JSON.parse(window.localStorage.carrinho);
       }
     },
-    alerta(mensagem){
+    compararEstoque() {
+      const itens = this.carrinho.filter(({id}) => id === this.produto.id);
+      this.produto.estoque -= itens.length;
+    },
+    alerta(mensagem) {
       this.mensagemAlerta = mensagem;
       this.alertaAtivo = true;
       setTimeout(() => {
         this.alertaAtivo = false;
-      }, 1000)
+      }, 1000);
     },
-    router(){
+    router() {
       const hash = document.location.hash;
-      if(hash){
+      if (hash) {
         this.fetchUmProduto(hash.replace('#', ''));
       }
     },
   },
-  watch:{
-    carrinho(){
-      window.localStorage.carrinho = JSON.stringify(this.carrinho)
+  watch: {
+    carrinho() {
+      window.localStorage.carrinho = JSON.stringify(this.carrinho);
     },
-    produto(){
+    produto() {
       document.title = this.produto.nome || 'Techno';
-      const hash = this.produto.id || ''
-      history.pushState(null, null, `#${hash}`)
-    }
+      const hash = this.produto.id || '';
+      history.pushState(null, null, `#${hash}`);
+      if (this.produto) this.compararEstoque();
+    },
   },
   created() {
     this.fetchProdutos();
