@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js - fundamentos</title>
+  </head>
+  <body>
+    <div id="app">
+      {{mensagem}}
+      <botao-contador></botao-contador>
+      <componente-global></componente-global>
+      <componente-local></componente-local>
+      <componente-local2></componente-local2>
+    </div>
+
+    <script>
+      //criar componente
+      Vue.component('BotaoContador', {
+        data() {
+          return {
+            total: 0,
+          };
+        },
+        template: `<button @click="total++">Contar: {{total}}</button>`,
+      });
+
+      //componente global
+      Vue.component('ComponenteGlobal', {
+        template: `<p>Isto é um componente global.</p>`
+      })
+
+      const ComponenteLocal = {
+        name: "ComponenteLocal",
+        //data em componentes é sempre uma função
+        data(){
+          return{
+            contador: 20,
+          }
+        },
+        //dentro do template deve haver apenas 1 elemento pai
+        template: ` 
+          <div>
+            <p>Componente local.</p>
+            <p>contador: {{contador}}.</p>
+            <p>contador dobro: {{contarDobro}}</p>
+          </div>
+        `,
+        computed:{
+          contarDobro(){
+            return this.contador * 2;
+          }
+        }
+      }
+
+      const ComponenteLocal2 = {
+        name: "ComponenteLocal",
+        template: `
+          <div>
+            <componente-global></componente-global>
+            <p>Componente local 2.</p>
+          </div>
+        `
+      }
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          mensagem: 'oi',
+        },
+        //componente local
+        components:{
+          ComponenteLocal,
+          ComponenteLocal2,
+        }
+      });
+    </script>
+  </body>
+</html>
