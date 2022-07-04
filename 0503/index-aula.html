@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+  <body>
+    <div id="app">
+      <meu-botao @origamid="mostrarMensagem"></meu-botao>
+      {{totalCliente}}
+    </div>
+
+    <script type="module">
+      const MeuBotao = {
+        name: 'MeuBotao',
+        template: `<button @click='handleClick'>Clique</button>`,
+        data() {
+          return {
+            totalCliente: 200,
+          };
+        },
+        methods: {
+          handleClick() {
+            this.$emit('origamid', this.totalCliente);
+          },
+        },
+        created() {
+          setTimeout(() => {
+            this.$emit('origamid', this.totalCliente);
+          }, 1000 * 10);
+        },
+      };
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          msg: '',
+          totalCliente: 0,
+        },
+        components: {
+          MeuBotao,
+        },
+        methods: {
+          mostrarMensagem(msg) {
+            this.totalCliente = msg;
+            console.log('origamid aconteceu');
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
