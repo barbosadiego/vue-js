@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+  <body>
+    <!-- 
+      Crie um componente com um campo de input e um botão para enviar o valor.
+      Nesse campo de input será possível escrever o simbolo de empresas americanas
+
+      simbolos ex:
+      aapl -> Apple
+      goog -> Google
+      msft -> Microsoft
+      amzn -> Amazon
+      fb -> Facebook
+
+      Ao clicar no botão, faça um fetch com a API:
+      https://api.origamid.dev/stock/${SIMBOLO}/quote
+
+      O resultado do fetch deverá ser mostrado em um componente filho do formulário.
+      Envia as informações utilizando prop
+    
+      Mostre todas as informações do fetch utilizando um loop.
+    -->
+
+    <div id="app">
+      <campo-busca></campo-busca>
+    </div>
+
+    <script>
+
+      const DadosAcao = {
+        name: 'DadosAcao',
+        props: ['acao'],
+        template: `
+          <ul>
+            <li v-for="(key, value) in acao">
+              {{key}}: {{value}}
+            </li>
+          </ul>
+        `,
+      }
+
+      const CampoBusca ={
+        name: 'CampoBusca',
+        data(){
+          return{
+            empresasData: {},
+            simbolo: '',
+          }
+        },
+        components:{
+          DadosAcao,
+        },
+        methods:{
+          buscaEmpresa(){
+            fetch(`https://api.origamid.dev/stock/${this.simbolo}/quote`)
+            .then(res => res.json())
+            .then(json => this.empresasData = json);
+          },
+        },
+        template: `
+          <div>
+            {{simbolo}}
+            <form>
+              <select name='select' id='sel' v-model='simbolo'>
+                <option disabled value="">Selecione</option>"
+                <option value="aapl">Apple</option>
+                <option value="goog">Google</option>
+                <option value="msft">Microsoft</option>
+                <option value="amzn">Amazon</option>
+                <option value="fb">Facebook</option>
+              </select>
+              <button @click.prevent="buscaEmpresa" type="submit">Enviar</button>
+            </form>
+              <dados-acao 
+                :acao="empresasData"
+              ></dados-acao>
+          </div>
+        `
+      }
+
+      const vm = new Vue({
+        el: '#app',
+        components:{
+          CampoBusca,
+        },
+      })
+      
+    </script>
+  </body>
+</html>
