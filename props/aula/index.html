@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../../vue.js"></script>
+    <title>Vue props</title>
+  </head>
+  <body>
+    <div id="app">
+      {{frutas}}
+      <lista-produtos
+        :frutas="frutas"
+        titulo="Este é o título"
+      ></lista-produtos>
+    </div>
+
+    <script type="module">
+      const ItemProduto = {
+        name: 'ItemProduto',
+        // props: ['nomeFruta', 'array'],
+        props:{
+          nomeFruta: String,
+          array: [Array, String],
+          cor:{
+            type: String,
+            required: true,
+          },
+          tamanho:{
+            type: String,
+            default: "Grande",
+          },
+        },
+        template: `
+          <li>
+            <h2>{{nomeFruta}}</h2>
+            <p>Array: {{array}}</p>
+            <p>Esse é o nome: {{nomeFruta}}</p>
+            <p>Essa é a cor: {{cor}}</p>
+            {{tamanho}}
+          </li>
+        `,
+      };
+
+      const ListaProdutos = {
+        name: 'ListaProdutos',
+        props: ['frutas', 'titulo'],
+        components: {
+          ItemProduto,
+        },
+        template: `
+          <ul>
+            <h1>{{titulo}}</h1>
+            <item-produto 
+              v-for="(item, index) in frutas" 
+              :key='item + index' 
+              :nomeFruta="item"
+              array="['oi', 'vinte', 'olé']"
+              cor="bege"
+              tamanho="Pequeno"
+            ></item-produto>
+          </ul>
+        `,
+      };
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          listaItens: ['Item 1', 'Item 2'],
+          frutas: ['banana', 'laranha', 'pinha'],
+        },
+        components: {
+          ListaProdutos,
+        },
+      });
+    </script>
+  </body>
+</html>

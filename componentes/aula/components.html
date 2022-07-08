@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../../vue.js"></script>
+    <title>Components</title>
+  </head>
+  <body>
+    
+    <div id="app">
+      <nav>
+        <menu-principal></menu-principal>
+      </nav>
+      <componente-global></componente-global>
+      <componente-local></componente-local>
+      <local2></local2>
+      <componente-local3></componente-local3>
+      <botao-contador></botao-contador>
+      <botao-contador></botao-contador>
+      <botao-contador></botao-contador>
+    </div>
+
+    <script type="module">
+      import BotaoContador from './BotaoContador.js';
+      import MenuPrincipal from './MenuPrincipal.js';
+
+      //componente local
+      const local2 = {
+        name: 'local2',
+        template: '<p>Componente local 2</p>',
+      };
+
+      const ComponenteLocal3 = {
+        name: 'ComponenteLocal3',
+        template: `
+          <div>
+            <componente-global></componente-global>
+            <p>Componente local 3 {{contar}}</p>
+          </div>
+        `,
+
+        data() {
+          return {
+            contar: 3450,
+          };
+        },
+      };
+
+      //componente global
+      Vue.component('BotaoContador', {
+        data() {
+          return {
+            mensagem: 'Olá mundo novamente!',
+            contagem: 0,
+          };
+        },
+        template: `<button @click="contagem++">click {{contagem}}</button>`,
+        methods: {
+          mostrarConsole() {
+            console.log(this.mensagem);
+          },
+        },
+      });
+
+      //outro componente global
+      Vue.component('ComponenteGlobal', {
+        template: '<p>Componente global</p>',
+      });
+
+      //componente externo registrado como global
+      Vue.component('BotaoContador', BotaoContador);
+      Vue.component('MenuPrincipal', MenuPrincipal);
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          mensagem: 'Olá mundo!',
+        },
+        components: {
+          ComponenteLocal: {
+            name: 'ComponenteLocal',
+            template: `<p>Componente local</p>`,
+          },
+          local2,
+          ComponenteLocal3,
+        },
+      });
+    </script>
+
+    <style>
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .menu {
+        display: flex;
+        gap: 10px;
+        background-color: bisque;
+        padding: 10px;
+      }
+    </style>
+  </body>
+</html>
