@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="../../vue.js"></script>
-  <title>Document</title>
-</head>
-<body>
-  <!-- 
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../../vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
     Crie um componente com um campo de input e um botão para enviar o valor.
     Nesse campo de input será possível escrever o simbolo de empresas americanas
 
@@ -28,35 +28,35 @@
     Mostre todas as informações do fetch utilizando um loop.
   -->
 
-  <div id="app">
-    <busca-empresa></busca-empresa>
-  </div>
+    <div id="app">
+      <busca-empresa></busca-empresa>
+    </div>
 
-  <script type="module">
-    import BuscaEmpresa from './BuscaEmpresa.js'
+    <script type="module">
+      import BuscaEmpresa from './BuscaEmpresa.js';
 
-    const vm = new Vue({
-      el: '#app',
-      data:{
-        empresa: {},
-      },
-      components:{
-        BuscaEmpresa,
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          empresa: {},
+        },
+        components: {
+          BuscaEmpresa,
+        },
+      });
+    </script>
+
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
-    })
-
-  </script>
-
-  <style>
-    body{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    ul,li{
-      list-style: none;
-    }
-    p{
-      text-transform: capitalize;
-    }
-  </style>
-</body>
+      ul,
+      li {
+        list-style: none;
+      }
+      p {
+        text-transform: capitalize;
+      }
+    </style>
+  </body>
 </html>

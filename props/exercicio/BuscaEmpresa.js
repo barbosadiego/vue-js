@@ -1,4 +1,4 @@
-import ExibirDados from "./ExibirDados.js";
+import ExibirDados from './ExibirDados.js';
 export default {
   name: 'BuscaEmpresa',
   data() {
@@ -7,7 +7,7 @@ export default {
       simbolo: '',
     };
   },
-  components:{
+  components: {
     ExibirDados,
   },
   template: `

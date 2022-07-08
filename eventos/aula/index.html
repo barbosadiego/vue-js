@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../../vue.js"></script>
+    <title>Vue Events</title>
+  </head>
+  <body>
+    <div id="app">
+      <meu-botao @meu-evento="mostrarMensagem"></meu-botao>
+      <p>{{mensagem}}</p>
+      <p>Informação do componente filho para o pai: {{total}}</p>
+    </div>
+
+    <script type="module">
+      const MeuBotao = {
+        name: 'MeuBotao',
+        data(){
+          return{
+            totalClientes: 200,
+          }
+        },
+        template: `
+        <button @click="handleClick">click</button>
+      `,
+        methods: {
+          handleClick() {
+            this.$emit('meu-evento', this.totalClientes);
+          },
+        },
+      };
+
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          mensagem: '',
+          total: 0,
+        },
+        components: {
+          MeuBotao,
+        },
+        methods: {
+          mostrarMensagem(mensagem) {
+            this.mensagem = 'Olá mundo!';
+            this.total = mensagem;
+            console.log('Evento ocorreu!');
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
