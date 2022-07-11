@@ -1,28 +1,26 @@
 <template>
   <div id="app">
-    <HeaderPrincipal />
-    <modal-principal>
-      <template v-slot:header="{logo}">
-        <h2>Subtítulo {{logo}}</h2>
-      </template>
-      <template v-slot:default="{user}">
-        {{user.nome}}
-        <p>Texto do slot</p>
-        <button>Clique</button>
-      </template>
-      <template v-slot:footer>
-        <p>footer named slot</p>
-      </template>
-    </modal-principal>
+    <button @click="componenteAtivo = 'AulaDescrição'">Descrição</button>
+    <button @click="componenteAtivo = 'AulaDownload'">Download</button>
+    <keep-alive>
+      <component :is="componenteAtivo"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
-import ModalPrincipal from './components/ModalPrincipal.vue';
+import AulaDescrição from './components/AulaDescrição.vue';
+import AulaDownload from './components/AulaDownload.vue';
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    ModalPrincipal,
+    AulaDescrição,
+    AulaDownload,
+  },
+  data() {
+    return {
+      componenteAtivo: 'AulaDownload',
+    };
   },
 };
 </script>
