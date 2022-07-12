@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <div v-if="loading">
-      <p>Carregando...</p>
+      <PageLoading />
     </div>
-    <div v-else>
-      <h1>home</h1>
+    <div v-if="api">
+      <h1>Home</h1>
       {{ api }}
     </div>
   </div>
@@ -12,8 +12,10 @@
 
 <script>
 import fetchData from '@/mixins/fetchData.js';
+import PageLoading from '../components/PageLoading.vue';
 
 export default {
+  components: { PageLoading },
   name: 'home-view',
   mixins: [fetchData],
   created() {
