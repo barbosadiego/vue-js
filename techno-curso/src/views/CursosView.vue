@@ -1,15 +1,25 @@
 <template>
   <div class="contato">
-    <h1>Cursos</h1>
+    <div v-if="loading">
+      <p>Carregando...</p>
+    </div>
+    <div v-if="api">
+      <h1>Cursos</h1>
+      {{ api }}
+    </div>
   </div>
 </template>
 
 <script>
+import fetchData from '@/mixins/fetchData';
+
 export default {
-  name: 'cursos-view'
-}
+  name: 'cursos-view',
+  mixins: [fetchData],
+  created() {
+    this.fetchData('/cursos');
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
