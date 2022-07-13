@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <p>{{$store.state.acao}}</p>
+    <p>{{$store.state.acao.acao}}</p>
     <Aluno />
     <Curso />
     <h3>Livros</h3>
@@ -29,7 +29,7 @@ export default {
     Curso,
   },
   created(){
-    this.$store.dispatch('puxarAcao')
+    this.$store.dispatch('acao/puxarAcao')
   }
 };
 </script>
