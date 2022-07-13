@@ -5,12 +5,19 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: 'lobo',
+    user: 'Lobo',
     aulasCompletas: 10,
   },
   getters: {
   },
   mutations: {
+    CHANGE_USER(state, payload){
+      state.user = payload.user;
+      console.log(payload.totalAulas)
+    },
+    COMPLETAR_AULA(state){
+      state.aulasCompletas++; 
+    }
   },
   actions: {
   },
