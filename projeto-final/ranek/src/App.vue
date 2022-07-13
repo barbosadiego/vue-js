@@ -1,28 +1,73 @@
 <template>
   <div id="app">
-    
+    <TheHeader />
+    <main class="main">
+      <router-view></router-view>
+    </main>
+    <TheFooter />
   </div>
 </template>
 
+<script>
+  import TheHeader from '@/components/TheHeader.vue'
+  import TheFooter from '@/components/TheFooter.vue'
+
+  export default {
+    components:{
+      TheHeader,
+      TheFooter,
+    }
+  }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+  *{
+    box-sizing: border-box;
+  }
+  img{
+    max-width: 100%;
+    display: block;
+  }
+  body, ul, li, h1, h2, p{
+    margin: 0px;
+    padding: 0px;
+  }
+  ul{
+    list-style: none;
+  }
+  body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #345;
+    background: url('./assets/pattern.svg') repeat top;
+  }
+  a{
+    color: #345;
+    text-decoration: none;
+  }
+  .btn{
+    display: block;
+    padding: 10px 30px;
+    background: #87f;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    font-size: 1rem;
+    box-shadow: 0 4px 8px rgba(30, 60, 90, .1);
+    border: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    transition: .3s;
+  }
+  .btn:hover{
+    background: #65d;
+    transform: scale(1.1);
+  }
+  #app{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  .main{
+    flex: 1;
+  }
 </style>
