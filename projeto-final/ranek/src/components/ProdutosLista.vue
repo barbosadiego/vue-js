@@ -1,7 +1,7 @@
 <template>
   <section class="produtos-container">
     <div v-if="produtos && produtos.length" class="produtos">
-      <div class="produto" v-for="produto in produtos" :key="produto.id">
+      <div class="produto" v-for="(produto, index) in produtos" :key="produto.id + index">
         <router-link to="/">
           <img
             v-if="produto.fotos"
@@ -13,6 +13,7 @@
           <p class="preco">{{ produto.preco }}</p>
         </router-link>
       </div>
+      <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina"/>
     </div>
     <div v-else-if="produtos && produtos.length === 0">
       <p class="sem-resultados">Busca sem resultados. Tente novamente</p>
@@ -23,15 +24,21 @@
 <script>
 import { api } from '@/services.js';
 import { serialize } from '@/helpers.js';
+import ProdutosPaginar from '@/components/ProdutosPaginar.vue'
 
 export default {
   name: 'produtos-lista',
+  components:{
+    ProdutosPaginar,
+  },
   data() {
     return {
       produtos: null,
       produtosPorPagina: 9,
+      produtosTotal: 0,
     };
   },
+  
   computed: {
     url() {
       const query = serialize(this.$route.query);
@@ -40,7 +47,10 @@ export default {
   },
   methods: {
     getProdutos() {
-      api.get(this.url).then((res) => (this.produtos = res.data));
+      api.get(this.url).then((res) => {
+        this.produtosTotal = Number(res.headers['x-total-count']);
+        this.produtos = res.data;
+      })
 
       // fetch('http://localhost:3000/produto')
       //   .then(res => res.json())
