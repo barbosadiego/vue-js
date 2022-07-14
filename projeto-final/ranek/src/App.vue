@@ -89,4 +89,18 @@
     box-shadow: 0 6px 12px rgba(30, 60, 90, .2);
     border-color: #87f;
   }
+  .v-enter,
+  .v-leaver-to{
+    opacity: 0;
+  }
+  .v-enter{
+    transform: translate3d(0,-20px,0);
+  }
+  .v-leaver-to{
+    transform: translate3d(0,20px,0);
+  }
+  .v-enter-active,
+  .v-leave-active{
+    transition: all .3s;
+  }
 </style>
