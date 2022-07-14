@@ -10,7 +10,7 @@
     <input type="password" id="senha" name="senha" v-model="senha">
 
     <label for="cep">CEP</label>
-    <input type="text" id="cep" name="cep" v-model="cep">
+    <input type="text" id="cep" name="cep" v-model="cep" @keyup="preencherCep">
 
     <label for="numero">Número</label>
     <input type="text" id="numero" name="numero" v-model="numero">
@@ -35,6 +35,7 @@
 
 <script>
 import {mapFields} from '@/helpers.js'
+import {getCep} from '@/services.js'
 
 export default {
   computed:{
@@ -43,6 +44,20 @@ export default {
       base: 'usuario',
       mutation: 'UPDATE_USUARIO'
     })
+  },
+  methods:{
+    preencherCep(){
+      const cep = this.cep.replace(/\D/g, '');
+      if(cep.length === 8){
+        getCep(cep).then(res => {
+          this.rua = res.data.logradouro;
+          this.bairro = res.data.bairro;
+          this.estado = res.data.uf;
+          this.cidade = res.data.localidade;
+          // console.log(res)
+        })
+      }
+    }
   }
 }
 </script>
