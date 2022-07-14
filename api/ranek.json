@@ -21,6 +21,30 @@
       "numero": "25",
       "estado": "PE",
       "cidade": "Tabira"
+    },
+    {
+      "id": "mariazinha@hotmail.com",
+      "nome": "MARIAZINHA",
+      "email": "mariazinha@hotmail.com",
+      "senha": "dsaf",
+      "cep": "100",
+      "rua": "Não sei",
+      "numero": "123",
+      "bairro": "CENTRO",
+      "cidade": "Pedeboi",
+      "estado": "RJ"
+    },
+    {
+      "id": "bu@bu.com",
+      "nome": "Bufalo",
+      "email": "bu@bu.com",
+      "senha": "123",
+      "cep": "35645",
+      "rua": "Bu",
+      "numero": "23432",
+      "bairro": "CENTRO",
+      "cidade": "New York",
+      "estado": "RJ"
     }
   ],
   "produto": [
