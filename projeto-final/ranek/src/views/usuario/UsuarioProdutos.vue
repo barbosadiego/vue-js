@@ -6,7 +6,7 @@
     <transition-group v-if="usuario_produtos" name="list" tag="ul">
       <li v-for="(produto, index) in usuario_produtos" :key="index">
         <ProdutoItem :produto="produto">
-          <p>{{produto.descricao}}</p>
+          <p>{{ produto.descricao }}</p>
         </ProdutoItem>
       </li>
     </transition-group>
@@ -14,37 +14,46 @@
 </template>
 
 <script>
-import ProdutoAdicionar from '@/components/ProdutoAdicionar.vue'
-import ProdutoItem from '@/components/ProdutoItem.vue'
-import {mapState, mapActions} from 'vuex'
+import ProdutoAdicionar from '@/components/ProdutoAdicionar.vue';
+import ProdutoItem from '@/components/ProdutoItem.vue';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'UsuarioProdutos',
-  components:{
+  components: {
     ProdutoAdicionar,
     ProdutoItem,
   },
-  computed:{
-    ...mapState(['login', 'usuario', 'usuario_produtos'])
+  computed: {
+    ...mapState(['login', 'usuario', 'usuario_produtos']),
   },
-  methods:{
-    ...mapActions(['getUsuarioProdutos'])
+  methods: {
+    ...mapActions(['getUsuarioProdutos']),
   },
-  watch:{
-    login(){
+  watch: {
+    login() {
+      this.getUsuarioProdutos();
+    },
+  },
+  created() {
+    if (this.login) {
       this.getUsuarioProdutos();
     }
   },
-  created(){
-    if(this.login){
-      this.getUsuarioProdutos();
-    }
-  }
-}
+};
 </script>
 
 <style scoped>
-h2{
+h2 {
   margin-bottom: 20px;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translate3d(20px, 0, 0);
+}
+.list-enter-active,
+.list-leave-active{
+  transition: all .3s;
 }
 </style>
